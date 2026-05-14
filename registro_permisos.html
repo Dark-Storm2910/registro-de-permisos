@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Permisos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: #f0f4f8;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a3c5e, #2d6a9f);
+      color: white;
+      padding: 28px 0 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      margin: 2px 0;
+      opacity: 0.88;
+    }
+
+    .card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.09);
+    }
+
+    .card-header {
+      background: linear-gradient(90deg, #2d6a9f, #1a3c5e);
+      color: white;
+      border-radius: 12px 12px 0 0 !important;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 14px 20px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #1a3c5e;
+      font-size: 0.88rem;
+      margin-bottom: 4px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      border: 1px solid #c5d5e8;
+      font-size: 0.92rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: #2d6a9f;
+      box-shadow: 0 0 0 0.2rem rgba(45,106,159,0.18);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2d6a9f, #1a3c5e);
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      padding: 9px 28px;
+      letter-spacing: 0.4px;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #1a3c5e, #0e2540);
+    }
+
+    .btn-outline-secondary {
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .badge-counter {
+      background: #2d6a9f;
+      color: white;
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .table thead {
+      background: linear-gradient(90deg, #1a3c5e, #2d6a9f);
+      color: white;
+    }
+
+    .table thead th {
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.3px;
+      vertical-align: middle;
+    }
+
+    .table tbody td {
+      vertical-align: middle;
+      font-size: 0.88rem;
+    }
+
+    .btn-danger {
+      border-radius: 6px;
+      padding: 3px 12px;
+      font-size: 0.8rem;
+    }
+
+    #sin-registros td {
+      text-align: center;
+      color: #888;
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      padding: 18px;
+      font-size: 0.82rem;
+      color: #7a8fa6;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FASE 3: Encabezado -->
+  <header>
+    <h1>📋 Sistema de Registro de Permisos</h1>
+    <p><strong>Estudiante:</strong> Angel Cedeño Medina</p>
+    <p><strong>Materia:</strong> Desarrollo de Aplicaciones Web</p>
+  </header>
+
+  <!-- FASE 4 & 5: Formulario con Bootstrap -->
+  <div class="container my-4">
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <i>📝</i> &nbsp;Nueva Solicitud de Permiso
+      </div>
+      <div class="card-body p-4">
+
+        <form id="formPermisos" novalidate>
+
+          <!-- Fila 1: Cédula + Nombre + Apellido -->
+          <div class="row g-3 mb-3">
+            <div class="col-md-3">
+              <label for="cedula" class="form-label">Cédula *</label>
+              <input type="text" class="form-control" id="cedula"
+                     placeholder="0000000000" maxlength="10" required/>
+            </div>
+            <div class="col-md-4">
+              <label for="nombre" class="form-label">Nombre *</label>
+              <input type="text" class="form-control" id="nombre"
+                     placeholder="Ingrese el nombre" required/>
+            </div>
+            <div class="col-md-5">
+              <label for="apellido" class="form-label">Apellido *</label>
+              <input type="text" class="form-control" id="apellido"
+                     placeholder="Ingrese el apellido" required/>
+            </div>
+          </div>
+
+          <!-- Fila 2: Fecha inicio + Fecha fin -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <label for="fechaInicio" class="form-label">Fecha de Inicio *</label>
+              <input type="date" class="form-control" id="fechaInicio" required/>
+            </div>
+            <div class="col-md-4">
+              <label for="fechaFin" class="form-label">Fecha de Fin *</label>
+              <input type="date" class="form-control" id="fechaFin" required/>
+            </div>
+          </div>
+
+          <!-- Botones -->
+          <div class="d-flex gap-2 justify-content-end">
+            <button type="button" class="btn btn-outline-secondary" id="btnLimpiar">
+              🔄 Limpiar
+            </button>
+            <button type="submit" class="btn btn-primary">
+              ✅ Registrar Permiso
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- Tabla de registros -->
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>📊 Solicitudes Registradas</span>
+        <span class="badge-counter">
+          Total: <span id="contador">0</span>
+        </span>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped table-hover mb-0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Días</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tablaBody">
+              <tr id="sin-registros">
+                <td colspan="8">No hay registros aún. Complete el formulario para agregar una solicitud.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2025 · Desarrollo de Aplicaciones Web · Todos los derechos reservados
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- FASE 6: JavaScript -->
+  <script>
+    // Referencias
+    const form        = document.getElementById('formPermisos');
+    const tablaBody   = document.getElementById('tablaBody');
+    const contador    = document.getElementById('contador');
+    const btnLimpiar  = document.getElementById('btnLimpiar');
+
+    let totalRegistros = 0;
+    let numeracionFila = 0;  // Número visible de fila (no decrece al eliminar)
+
+    // Formatear fecha de YYYY-MM-DD a DD/MM/YYYY
+    function formatearFecha(fecha) {
+      const [y, m, d] = fecha.split('-');
+      return `${d}/${m}/${y}`;
+    }
+
+    // Calcular días entre dos fechas
+    function calcularDias(inicio, fin) {
+      const d1 = new Date(inicio);
+      const d2 = new Date(fin);
+      const diff = (d2 - d1) / (1000 * 60 * 60 * 24);
+      return diff >= 0 ? diff + 1 : '—';
+    }
+
+    // Actualizar contador
+    function actualizarContador() {
+      contador.textContent = totalRegistros;
+    }
+
+    // Eliminar fila
+    function eliminarFila(btn) {
+      const fila = btn.closest('tr');
+      fila.remove();
+      totalRegistros--;
+      actualizarContador();
+
+      if (totalRegistros === 0) {
+        const vacio = document.createElement('tr');
+        vacio.id = 'sin-registros';
+        vacio.innerHTML = '<td colspan="8">No hay registros aún. Complete el formulario para agregar una solicitud.</td>';
+        tablaBody.appendChild(vacio);
+      }
+    }
+
+    // Evento submit del formulario
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Obtener datos
+      const cedula     = document.getElementById('cedula').value.trim();
+      const nombre     = document.getElementById('nombre').value.trim();
+      const apellido   = document.getElementById('apellido').value.trim();
+      const fechaInicio = document.getElementById('fechaInicio').value;
+      const fechaFin   = document.getElementById('fechaFin').value;
+
+      // Validación básica
+      if (!cedula || !nombre || !apellido || !fechaInicio || !fechaFin) {
+        alert('⚠️ Por favor, complete todos los campos obligatorios.');
+        return;
+      }
+
+      if (new Date(fechaFin) < new Date(fechaInicio)) {
+        alert('⚠️ La fecha de fin no puede ser anterior a la fecha de inicio.');
+        return;
+      }
+
+      // Quitar mensaje vacío
+      const sinReg = document.getElementById('sin-registros');
+      if (sinReg) sinReg.remove();
+
+      // Incrementar contadores
+      totalRegistros++;
+      numeracionFila++;
+
+      const dias = calcularDias(fechaInicio, fechaFin);
+
+      // Crear fila dinámica
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td>${numeracionFila}</td>
+        <td>${cedula}</td>
+        <td>${nombre}</td>
+        <td>${apellido}</td>
+        <td>${formatearFecha(fechaInicio)}</td>
+        <td>${formatearFecha(fechaFin)}</td>
+        <td><span class="badge bg-info text-dark">${dias} día(s)</span></td>
+        <td>
+          <button class="btn btn-danger btn-sm" onclick="eliminarFila(this)">
+            🗑️ Eliminar
+          </button>
+        </td>
+      `;
+
+      // Insertar en la tabla
+      tablaBody.appendChild(fila);
+
+      // Actualizar contador
+      actualizarContador();
+
+      // Reiniciar formulario
+      form.reset();
+    });
+
+    // Botón limpiar
+    btnLimpiar.addEventListener('click', function () {
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
